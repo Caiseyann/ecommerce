@@ -102,3 +102,45 @@ class ProfileDescription(APIView):
         profile = self.get_profile(pk)
         profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProductList(APIView):
+
+    def get(self, request, format=None):
+        all_product = Product.objects.all()
+        serializers = ProductSerializer(all_product, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers = ProductSerializer(data=request.data)
+        permission_classes = (IsAdminOrReadOnly,)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProductDescription(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get_product(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        product= self.get_product(pk)
+        serializers = ProductSerializer(product)
+        return Response(serializers.data)
+
+    def put(self, request, pk, format=None):
+        product = self.get_product(pk)
+        serializers = ProductSerializer(product, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        product = self.get_product(pk)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
