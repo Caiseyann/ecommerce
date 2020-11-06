@@ -29,3 +29,23 @@ class Profile(models.Model):
 
         return profile
 
+class Products(models.Model):
+    id = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
+    category = models.CharField(max_length=100, null=True)
+    name = models.TextField()
+    product_image = models.ImageField(upload_to = 'products/', null=True)
+    price = models.IntegerField(default=0)
+    description = models.CharField(max_length=200,null=True)
+
+    @classmethod
+    def get_products(cls):
+        products = Products.objects.all()
+        return products
+    
+    @classmethod
+    def find_products(cls,search_term):
+        products = Products.objects.filter(title_icontains=search_term)
+        return products 
+    def update_products(self):
+        self.update_products()
