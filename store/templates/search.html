@@ -1,0 +1,31 @@
+{%extends 'products/base.html'%}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<div class="container mt-5">
+    <div class="row mt-5"></div>
+    <div class="row mt-5"></div>
+    <div class="row mt-5">
+        {% if searched_products %}
+        <h2>{{searched_products | length}} Product found</h2>
+        {% else %}
+        <h2>Found 0 products {{message | title}}</h2>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if searched_products %}
+            {% for products in searched_products %}
+
+            <div class="card border-secondary">
+              <div class="card-header">
+                <h2><a href="{{ products.products_link }}" target="_blank">{{products.title}}</a></h2>
+              </div>
+              <img class="card-img-top" class="img-responsive" src="{{products.products_image.url}}" size="100px200">
+            </div>
+            <div class="card-body">
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
