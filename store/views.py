@@ -50,3 +50,29 @@ def search_results(request):
     else:
         message = "You haven't searched for any products"
         return render(request,'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')
+def all(request, pk):
+    profile = Products.objects.get(pk=pk)
+    content = {
+        "profile": profile,
+        'projects': products,
+    }
+    return render(request, 'products/products.html', content)
+
+
+class ProfileList(APIView):
+
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers = ProfileSerializer(data=request.data)
+        permission_classes = (IsAdminOrReadOnly,)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
