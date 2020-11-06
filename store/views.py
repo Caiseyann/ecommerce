@@ -103,37 +103,37 @@ class ProfileDescription(APIView):
         profile.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class ProductList(APIView):
+class ProductsList(APIView):
 
     def get(self, request, format=None):
-        all_product = Product.objects.all()
-        serializers = ProductSerializer(all_product, many=True)
+        all_products = Products.objects.all()
+        serializers = ProductsSerializer(all_products, many=True)
         return Response(serializers.data)
 
     def post(self, request, format=None):
-        serializers = ProductSerializer(data=request.data)
+        serializers = ProductsSerializer(data=request.data)
         permission_classes = (IsAdminOrReadOnly,)
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ProductDescription(APIView):
+class ProductsDescription(APIView):
     permission_classes = (IsAdminOrReadOnly,)
-    def get_product(self, pk):
+    def get_products(self, pk):
         try:
-            return Product.objects.get(pk=pk)
-        except Product.DoesNotExist:
+            return Products.objects.get(pk=pk)
+        except Products.DoesNotExist:
             return Http404
 
     def get(self, request, pk, format=None):
-        product= self.get_product(pk)
-        serializers = ProductSerializer(product)
+        products= self.get_products(pk)
+        serializers = ProductsSerializer(products)
         return Response(serializers.data)
 
     def put(self, request, pk, format=None):
-        product = self.get_product(pk)
-        serializers = ProductSerializer(product, request.data)
+        products = self.get_products(pk)
+        serializers = ProductsSerializer(products, request.data)
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data)
@@ -141,6 +141,6 @@ class ProductDescription(APIView):
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        product = self.get_product(pk)
-        product.delete()
+        products = self.get_products(pk)
+        products.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
