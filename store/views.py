@@ -38,3 +38,15 @@ def add_profile(request):
         form = NewProfileForm()
     return render(request, 'new_profile.html', {"form": form})
 
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+
+    if 'title' in request.GET and request.GET["title"]:
+        search_term = request.GET.get("title")
+        searched_project = Project.find_project(search_term)
+        message = search_term
+
+        return render(request,'search.html',{"message":message, "searched_products":searched_products})
+    else:
+        message = "You haven't searched for any products"
+        return render(request,'search.html',{"message":message})
