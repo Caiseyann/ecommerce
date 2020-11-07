@@ -173,6 +173,6 @@ django_heroku.settings(locals())
 LOGIN_REDIRECT_URL='/'
 
 UPLOADCARE = {
-    'pub_key': '',
-    'secret': '',
+    'pub_key': '4dad859f557857ad5cd4',
+    'secret': '3cd3ff0f0ebd8de49bef',
 }
