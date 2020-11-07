@@ -1,13 +1,39 @@
-from django.shortcuts import render
-from .models import *
-from .serializer import *
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
 from rest_framework import status
-from django.http import JsonResponse
-from rest_framework.views import APIView
+from django.shortcuts import render, redirect, render_to_response, HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from .forms import SignUpForm, NewProfileForm
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import *
+from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
+from .models import *
+from django.http import JsonResponse
 
 # Create your views here.
+def signUp(request):
+     if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home.html')
+     else:
+        form = SignUpForm()
+        return render(request, 'registration/registration_form.html', {'form': form})
+
+
 @login_required(login_url='/accounts/login/')
 def home(request):
     products = Project.get_products()
