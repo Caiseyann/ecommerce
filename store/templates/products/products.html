@@ -4,31 +4,31 @@
 {{block.super}}
 <div class="container">
     <div class="row">
-{% for products_item in products %}
+{% for store_item in store %}
         <div class="col-md-4">
             
         <div class="add-data">
-        <a href="" data-toggle="modal" data-target="#{{products_item.id}}">
-            <img src="{{products_item.category_image.url}}" class="img-responsive img-thumbnail image" alt="Image">
-            <h4 class="bold">{{products_item.category}}</h4>
+        <a href="" data-toggle="modal" data-target="#{{store_item.id}}">
+            <img src="{{store_item.category_image.url}}" class="img-responsive img-thumbnail image" alt="Image">
+            <h4 class="bold">{{store_item.category}}</h4>
         </a>
     
 </div>
 </div>
-<div class="modal fade mode" id="{{products_item.id}}" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+<div class="modal fade mode" id="{{store_item.id}}" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title uppercase capital bold " id="myModalLabel">{{products_item.title}}</h3>
+                <h3 class="modal-title uppercase capital bold " id="myModalLabel">{{store_item.title}}</h3>
 
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <img src="{{products_item.category_image.url}}" class="img-responsive img-thumbnail" alt="Image">
+                    <img src="{{store_item.category_image.url}}" class="img-responsive img-thumbnail" alt="Image">
                 </div>
 
-                <p>{{products_item.description}}</p>
+                <p>{{store_item.description}}</p>
             </div>
 
           

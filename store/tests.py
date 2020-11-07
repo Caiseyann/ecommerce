@@ -18,8 +18,6 @@ class ProfileTest(TestCase):
 
 class ProductsTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(id=1, username='userone')
-        self.profile = Profile.objects.create (user = self.user, email = 'userone@gmail.com')
 
         self.products = Products.objects.create(profile = self.profile, category = 'shoes', name= 'black shoes', description = 'new shoes', price = '30')
 
