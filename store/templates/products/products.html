@@ -1,18 +1,47 @@
 {%extends 'products/base.html'%}
-
 {% block content%}
 {{block.super}}
+<div class="somecontainer">
+    <div class="gallery pt-5">
+        <h2 style="text-align: center;">Products in Store</h2>
+         <div class="image-gallery">
+          <a href="./images/gallery1.jpeg" class="img-1">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </a>
+          <a href="./images/gallery2.jpeg" class="img-2">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </a>
+          <a href="./images/gallery3.jpeg" class="img-3">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      </div>
+<div class="somecontainer">
+    <div class="gallery pt-5">
+        <h2 style="text-align: center;">Products in Store</h2>
+         <div class="image-gallery">
+          <a href="./images/gallery1.jpeg" class="img-1">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </a>
+          <a href="./images/gallery2.jpeg" class="img-2">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </a>
+          <a href="./images/gallery3.jpeg" class="img-3">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      </div>
 <div class="container">
     <div class="row">
 {% for products_item in products %}
         <div class="col-md-4">
-            
         <div class="add-data">
         <a href="" data-toggle="modal" data-target="#{{products_item.id}}">
-            <img src="{{products_item.category_image.cdn_url}}" class="img-responsive img-thumbnail image" alt="Image">
+            <img src="{{products_item.category_image.url}}" class="img-responsive img-thumbnail image" alt="Image">
             <h4 class="bold">{{products_item.category}}</h4>
         </a>
-    
 </div>
 </div>
 <div class="modal fade mode" id="{{products_item.id}}" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -21,24 +50,22 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3 class="modal-title uppercase capital bold " id="myModalLabel">{{products_item.title}}</h3>
-
             </div>
             <div class="modal-body">
                 <div class="container">
                     <img src="{{products_item.category_image.cdn_url}}" class="img-responsive img-thumbnail" alt="Image">
                 </div>
-
                 <p>{{products_item.description}}</p>
             </div>
-
-          
         </div>
     </div>/
 </div>
 </a>
-
-
 {% endfor%}
 </div>
     </div>
 {% endblock %}
+
+
+
+
