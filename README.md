@@ -10,8 +10,10 @@ This is an application designed to users to view different products of different
 * login
 * view the products
 ## Known Bugs
-Images not loading
-Couldn't fully show images api key 
+**Images not loading
+**Couldn't fully show images api key 
+**Implementing some api keys ( some do not work at the moment)
+
 ## Technologies Used
 * Python
 * Mako
