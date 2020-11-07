@@ -30,8 +30,6 @@ class Profile(models.Model):
         return profile
 
 class Products(models.Model):
-    id = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     category = models.CharField(max_length=100, null=True)
     name = models.TextField()
     product_image = models.ImageField(upload_to = 'products/', null=True)
