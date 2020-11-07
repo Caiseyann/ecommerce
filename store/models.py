@@ -1,9 +1,10 @@
 from django.db import models
+from pyuploadcare.dj.models import ImageField
 from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
-    profile_photo = models.ImageField(upload_to = 'profile/', null=True)
+    profile_photo = ImageField(blank=True, manual_crop="")
     email = models.CharField(max_length=60, null=True)
 
     def __str__(self):
@@ -32,7 +33,7 @@ class Profile(models.Model):
 class Products(models.Model):
     category = models.CharField(max_length=100, null=True)
     name = models.TextField()
-    product_image = models.ImageField(upload_to = 'products/', null=True)
+    product_image = ImageField(blank=True, manual_crop="")
     price = models.IntegerField(default=0)
     description = models.CharField(max_length=200,null=True)
 

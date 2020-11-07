@@ -9,7 +9,7 @@
             
         <div class="add-data">
         <a href="" data-toggle="modal" data-target="#{{products_item.id}}">
-            <img src="{{products_item.category_image.url}}" class="img-responsive img-thumbnail image" alt="Image">
+            <img src="{{products_item.category_image.cdn_url}}" class="img-responsive img-thumbnail image" alt="Image">
             <h4 class="bold">{{products_item.category}}</h4>
         </a>
     
@@ -25,7 +25,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <img src="{{products_item.category_image.url}}" class="img-responsive img-thumbnail" alt="Image">
+                    <img src="{{products_item.category_image.cdn_url}}" class="img-responsive img-thumbnail" alt="Image">
                 </div>
 
                 <p>{{products_item.description}}</p>
