@@ -44,7 +44,7 @@ def home(request):
 def profile(request,profile_id):
 
     profile = Profile.objects.get(pk = profile_id)
-    projects = Project.objects.filter(profile_id=profile).all()
+    products = Project.objects.filter(profile_id=profile).all()
 
     return render(request,"profile.html",{"profile":profile})
 
@@ -82,7 +82,7 @@ def all(request, pk):
     profile = Products.objects.get(pk=pk)
     content = {
         "profile": profile,
-        'projects': products,
+        'products': products,
     }
     return render(request, 'products/products.html', content)
 
