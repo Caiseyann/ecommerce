@@ -1,0 +1,43 @@
+{% load staticfiles %}
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  {%if title%}
+
+  <title>{{title}}</title>
+
+  {%endif%}
+
+  {% block styles %} 
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  {% endblock %}
+
+</head>
+
+<body>
+  
+  
+  
+
+  {% block content %}  {%endblock%}
+
+
+  {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  {% endblock %}
+
+</body>
+
+</html>
+
+
+
+        
+
