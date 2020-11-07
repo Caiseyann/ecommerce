@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+
+  .image{
+    width:300px;
+    height:300px;
+  }
+  
+  input{
+    font-size:large;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bold;
+  
+  }
+
