@@ -12,9 +12,9 @@ urlpatterns = [
     url(r'^new/profile$', views.add_profile, name='add_profile'),
     url(r'^api/profile/$', views.ProfileList.as_view()),
     url(r'api/profile/profile-id/(?P<pk>[0-9]+)/$',views.ProfileDescription.as_view()),
-    url(r'^api/product/$', views.ProductList.as_view()),
-    url(r'api/product/product-id/(?P<pk>[0-9]+)/$',views.ProductDescription.as_view()),
-    url(r'api/product/product-id/delete(?P<pk>[0-9]+)/$',views.ProductDescription.as_view()),
+    url(r'^api/products/$', views.ProductList.as_view()),
+    url(r'api/products/products-id/(?P<pk>[0-9]+)/$',views.ProductsDescription.as_view()),
+    url(r'api/products/products-id/delete(?P<pk>[0-9]+)/$',views.ProductsDescription.as_view()),
 
 ]
 
