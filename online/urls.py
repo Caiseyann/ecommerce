@@ -21,9 +21,22 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'',include('store.urls')),
-    url(r'^logout/$', views.logout, {"next_page": '/accounts/login/'}),
-    url(r'^api-token-auth/', obtain_auth_token)
+    url(r'^api-token-auth/', obtain_auth_token),
+    url(r'^api/auth/login/$', obtain_jwt_token, name='api-login'),
+    url(r'^api/store/', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/put', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/put/', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/put/:id', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/delete', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/delete/', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/delete/:id', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/post', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/post/', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/post/:id', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/get', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/get/', include('store.api.urls', namespace='api-store')),
+    url(r'^api/store/get/:id', include('store.api.urls', namespace='api-store')),   
+
   
 ]
