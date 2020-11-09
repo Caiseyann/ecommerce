@@ -57,7 +57,7 @@ class Products(models.Model):
         return self.user
 
     # def get_absolute_url(self):
-    #     return reverse("api-postings:post-rud", kwargs={'pk': self.pk}) '/api/postings/1/'
+    #     return reverse("api-store:post-rud", kwargs={'pk': self.pk}) '/api/store/1/'
     
     def get_api_url(self, request=None):
-        return api_reverse("api-postings:post-rud", kwargs={'pk': self.pk}, request=request)
+        return api_reverse("api-store:post-rud", kwargs={'pk': self.pk}, request=request)
