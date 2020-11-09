@@ -1,11 +1,53 @@
+from django.conf import settings
 from django.db import models
-from pyuploadcare.dj.models import ImageField
-from django.contrib.auth.models import User
-# Create your models here.
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
-    profile_photo = ImageField(blank=True, manual_crop="")
-    email = models.CharField(max_length=60, null=True)
+from django.urls import reverse
+from django.core.urlresolvers import reverse
+from rest_framework.reverse import reverse as api_reverse
+
+# django hosts --> subdomain for reverse
+# UserProfile class
+class UserProfile(models.Model):
+
+    USER_TYPES = (
+        ('c', 'Customer'),
+        ('a', 'Admin')
+    )
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
+    profile_image = models.ImageField(upload_to = 'activis/', null=True)
+    about = models.TextField(blank=True)
+    user_type = models.CharField(max_length=1, choices=USER_TYPES, default='c')
+
+
+    def __str__(self):
+        return self.user.username
+
+    def save(self, *args, **kwargs):
+        if self.id and self.image:
+            current_image = UserProfile.objects.get(pk=self.id).image
+            if current_image != self.image:
+                current_image.delete()
+        super(UserProfile, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        target = reverse('authapp:profile', args=[self.user.username])
+        return target
+
+    def is_customer(self):
+        return self.user_type == 'c'
+
+    def is_admin(self):
+        return self.user_type == 'a'
+
+class Products(models.Model):
+    # pk aka id --> numbers
+    user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
+    category      = models.TextField(max_length=30, null=True, blank=True)
+    name       = models.CharField(max_length=120, null=True, blank=True)
+    price =  models.IntegerField(default=0)
+    description     = models.TextField(max_length=120, null=True, blank=True)
+
+    timestamp   = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.user.username)
@@ -14,38 +56,8 @@ class Profile(models.Model):
     def owner(self):
         return self.user
 
-
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-
-        post_save.connect(create_user_profile, sender=User)
-
-    def save_profile(self):
-        self.save()
-
-    @classmethod
-    def get_profile(cls):
-        profile = Profile.objects.all()
-
-        return profile
-
-class Products(models.Model):
-    category = models.CharField(max_length=100, null=True)
-    name = models.TextField()
-    product_image = ImageField(blank=True, manual_crop="")
-    price = models.IntegerField(default=0)
-    description = models.CharField(max_length=200,null=True)
-
-    @classmethod
-    def get_products(cls):
-        products = Products.objects.all()
-        return products
+    # def get_absolute_url(self):
+    #     return reverse("api-postings:post-rud", kwargs={'pk': self.pk}) '/api/postings/1/'
     
-    @classmethod
-    def find_products(cls,search_term):
-        products = Products.objects.filter(title_icontains=search_term)
-        return products 
-    def update_products(self):
-        self.update_products()
-
+    def get_api_url(self, request=None):
+        return api_reverse("api-postings:post-rud", kwargs={'pk': self.pk}, request=request)
